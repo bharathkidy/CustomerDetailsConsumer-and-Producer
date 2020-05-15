@@ -1,0 +1,174 @@
+swagger: "2.0"
+info:
+  description: "Swagger for CustomerDetails API"
+  version: "1.0.0"
+  title: "CustomerDetails"
+host: "localhost"
+tags:
+- name: "addCustomer"
+  description: "addCustomer API"
+paths:
+  /crud/v1/addCustomer:
+    post:
+      tags:
+      - "addCustomer"
+      summary: "Api to add Customer"
+      description: "Api to add Customer"
+      operationId: "addCustomer"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: header
+        name: Authorization
+        type: string
+        description: Authorization Token
+      - in: header
+        name: Activity-Id
+        type: string
+        description: Activity-Id
+      - in: header
+        name: Application-Id
+        type: string
+        description: Application-Id
+      - in: "body"
+        name: "CustomerDetailsRequest"
+        description: "Customer Details"
+        required: true
+        schema:
+          $ref: "#/definitions/CustomerDetailsRequest"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: "Error Response"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Error Response"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: "Error Response"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+definitions:
+  CustomerDetailsRequest:
+    type: "object"
+    required:
+      - customerNumber
+      - firstName
+      - lastName
+      - birthdate
+      - country
+      - countryCode
+      - mobileNumber
+      - email
+      - customerStatus
+      - address
+    properties:
+      customerNumber: 
+        type : "string"
+        description: "customer Number"
+        maxLength: 10
+        pattern: '^[a-zA-Z]\d{9}$'
+        example: "C000000001"
+      firstName: 
+        type : "string"
+        description: "firstName"
+        minLength: 10
+        maxLength: 50
+        example: "Bharath"
+      lastName: 
+        type : "string"
+        description: "lastName"
+        minLength: 10
+        maxLength: 50
+        example: "Mokkala"
+      birthDate: 
+        type : "string"
+        description: "birthdate"
+        pattern: "\\d{2}-\\d{2}-\\d{4}"
+        example: "29-06-1991"
+      country: 
+        type : "string"
+        description: "country name"
+        example: "India"
+      countryCode: 
+        type : "string"
+        description: "countryCode"
+        maxLength: 2
+        example: "IN"
+      mobileNumber: 
+        type : "string"
+        description: "mobileNumber"
+        maxLength: 10
+        example: "5555551216"
+      email: 
+        type : "string"
+        description: "email"
+        maxLength: 50
+        example: "abc@gmail.com"
+      customerStatus: 
+        type : "string"
+        description: "customerStatus"
+        enum:
+            - Open 
+            - Close
+            - Suspended
+            - Restored
+        example: "Open"
+      address : 
+        $ref: "#/definitions/address"
+  address:
+    type: object
+    required:
+      - addressLine1
+      - postalCode
+    properties:
+      addressLine1 :
+        type: "string"
+        description: "addressLine1"
+        maxLength: 50
+      addressLine2:
+        type: "string"
+        description: "addressLine2"
+      street:
+        type: "string"
+        description: "street "
+      postalCode :
+        type: "string"
+        maxLength: 5
+  SuccessResponse:
+    type: "object"
+    required:
+      - message
+      - status
+    properties:
+      status: 
+        type: "string"
+        example: "success"
+      message: 
+        type: "string"
+        example: "success"
+  ErrorResponse:
+    type: "object"
+    required:
+      - message
+      - status
+    properties:
+      status: 
+        type: "string"
+        example: "error"
+      message: 
+        type: "string"
+        example: "Failure"
+      error_Type:
+        type: "string"
+        example: "Exception"
+      
+    
+      

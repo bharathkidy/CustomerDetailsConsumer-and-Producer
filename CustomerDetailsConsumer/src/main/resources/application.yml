@@ -1,0 +1,21 @@
+
+spring:
+  application:
+    name: CustomerDetailsConsumer
+  kafka:
+    bootstrap-servers: localhost:9092
+  datasource:
+    url: jdbc:mysql://localhost:3306/mysql
+    password: password
+    username: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+customerDetails:
+  topic:
+    name: postCustomerDetails
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    com.prokarma.customerdetails.consumer.aop: DEBUG
+
+
+

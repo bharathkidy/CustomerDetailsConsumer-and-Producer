@@ -1,0 +1,40 @@
+
+DROP FUNCTION CUSTOMER_DETAILS_JSON_UNMASKING;
+
+DELIMITER //
+
+CREATE FUNCTION CUSTOMER_DETAILS_JSON_UNMASKING (jsonInput JSON, secretText VARCHAR(20))
+RETURNS JSON 
+BEGIN
+
+   DECLARE customerNumber VARCHAR(200);
+   DECLARE customerNumberUnMasked VARCHAR(10);
+   DECLARE birthDate VARCHAR(200);
+   DECLARE birthDateUnMasked VARCHAR(10);
+   DECLARE email VARCHAR(200);
+   DECLARE emailUnMasked VARCHAR(50);
+   
+   
+   
+   SET customerNumber=JSON_UNQUOTE(JSON_EXTRACT(jsonInput, '$.customerNumber'));
+   SET customerNumberUnMasked=AES_DECRYPT(customerNumber,secretText);  
+   
+  
+   SET birthDate=JSON_UNQUOTE(JSON_EXTRACT(jsonInput, '$.birthdate'));
+   SET birthDateUnMasked=AES_DECRYPT(birthDate,secretText);
+   
+   SET email=JSON_UNQUOTE(JSON_EXTRACT(jsonInput, '$.email'));
+   SET emailUnMasked=AES_DECRYPT(email,secretText);
+   
+   SET jsonInput=JSON_REPLACE(jsonInput,'$.email',emailUnMasked);
+   SET jsonInput=JSON_REPLACE(jsonInput,'$.birthdate',birthDateUnMasked);
+   SET jsonInput=JSON_REPLACE(jsonInput,'$.customerNumber',customerNumberUnMasked);
+
+   RETURN jsonInput;
+
+END; //
+
+
+
+
+DELIMITER ;

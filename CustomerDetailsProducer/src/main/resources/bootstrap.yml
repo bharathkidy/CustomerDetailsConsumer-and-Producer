@@ -1,0 +1,20 @@
+spring:
+  application.name: CustomerDetailsProducer
+  kafka:
+    bootstrap-servers: localhost:9092
+    max.block.ms: 1500
+    producer:      client-id: CustomerService
+      topic-name: postCustomerDetails
+server:
+  port: 8082
+
+logging:
+  level:
+    root: INFO
+    com.prokarma.customerdetails.producer.api: DEBUG
+    com.prokarma.customerdetails.producer.util: DEBUG
+log4j:
+  rootLogger: INFO
+  logger:
+    com.prokarma.customerdetails.producer.api: DEBUG
+    com.prokarma.customerdetails.producer.util: DEBUG
