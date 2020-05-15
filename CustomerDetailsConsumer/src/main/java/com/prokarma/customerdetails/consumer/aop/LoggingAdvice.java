@@ -7,7 +7,6 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
-import com.prokarma.customerdetails.consumer.exceptions.GeneralException;
 import com.prokarma.customerdetails.consumer.util.MaskingUtil;
 import com.prokarma.customerdetails.consumer.util.ObjectMapperUtil;
 
@@ -38,12 +37,15 @@ public class LoggingAdvice {
 
   }
 
+
+
   @AfterThrowing(
-      pointcut = "execution(* com.prokarma.customerdetails.consumer.listeners.KafkaConsumer.receive(..))",
+      pointcut = "execution(* com.prokarma.customerdetails.consumer.service.CustomerDetailsConsumerServiceImpl.*(..))",
       throwing = "ex")
-  public void logAfterThrowingAllMethods(GeneralException ex) {
+  public void logAfterThrowingAllMethods(Exception ex) {
     if (LOG.isDebugEnabled())
       LOG.debug(ex.getMessage());
+
   }
 
 }

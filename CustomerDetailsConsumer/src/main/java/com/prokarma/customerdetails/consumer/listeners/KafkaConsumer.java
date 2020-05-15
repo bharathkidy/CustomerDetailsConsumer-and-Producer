@@ -24,8 +24,11 @@ public class KafkaConsumer {
   @KafkaListener(topics = "${customerDetails.topic.name}", containerFactory = "customerDetails")
   public void receive(@Payload CustomerDetailsRequest customerDetailsRequest,
       @Headers MessageHeaders headers) {
-
-    customerDetailsConsumerService.postAuditLogEntity(customerDetailsRequest);
+    try {
+      customerDetailsConsumerService.postAuditLogEntity(customerDetailsRequest);
+    } catch (Exception e) {
+      // just to handle the exception in the given method itself
+    }
   }
 
 }
