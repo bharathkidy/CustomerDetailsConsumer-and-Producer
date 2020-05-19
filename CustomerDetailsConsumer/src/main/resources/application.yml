@@ -12,10 +12,11 @@ spring:
 customerDetails:
   topic:
     name: postCustomerDetails
-logging:
-  level:
+log4j:
+  logger:
     org.hibernate.SQL: DEBUG
     com.prokarma.customerdetails.consumer.aop: DEBUG
+    
 
 
 

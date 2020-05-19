@@ -1,51 +1,72 @@
 package com.prokarma.customerdetails.consumer.aop;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import com.prokarma.customerdetails.consumer.util.MaskingUtil;
 import com.prokarma.customerdetails.consumer.util.ObjectMapperUtil;
+
+
 
 @Aspect
 @Component
 public class LoggingAdvice {
 
-  private static final Log LOG = LogFactory.getLog(LoggingAdvice.class);
+
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoggingAdvice.class);
+
+
+	/**
+	 * Point cut expressions that matches all methods of CustomerDetailsConsumer and save method of
+	 * Data Repository classes
+	 */
+	@Pointcut("execution(* com.prokarma.customerdetails.consumer.listeners.CustomerDetailsConsumer.*(..))"
+			+ "|| execution(* com.prokarma.customerdetails.consumer.repository.*.save(..))")
+	public void logDebugAroundPointcut() {
+		// Method is empty as this is just a point cut, the implementations are in the advices.
+	}
+
+	/**
+	 * Point cut expression that matches all the methods of CustomerDetailsConsumer class for logging
+	 * unhandled errors
+	 */
+	@Pointcut("execution(* com.prokarma.customerdetails.consumer.listeners.CustomerDetailsConsumer.*(..))")
+	public void logErrorAfterThrowingPointcut() {
+		// Method is empty as this is just a point cut, the implementations are in the advices.
+	}
 
 
 
-  @Around("execution(* com.prokarma.customerdetails.consumer.listeners.KafkaConsumer.receive(..)) ||"
-      + "execution(* org.springframework.data.repository.*.*(..))")
-  public Object applicationLoggerConsumer(ProceedingJoinPoint pjp) throws Throwable {
-    String methodName = pjp.getSignature().getName();
-    String className = pjp.getSignature().getClass().getName();
-    Object[] args = pjp.getArgs();
-    if (LOG.isDebugEnabled())
-      LOG.debug("Invoking Method " + className + "." + methodName + "()" + " with arguments: "
-          + MaskingUtil.getMaskedMessage(
-              ObjectMapperUtil.objectToJsonString(args[0]).replaceAll("\\\\\"", "\"")));
-    Object object = pjp.proceed();
-    if (LOG.isDebugEnabled())
-      LOG.debug("Invoked Method " + className + "." + methodName + "()"
-          + ", and received Response: " + MaskingUtil.getMaskedMessage(
-              ObjectMapperUtil.objectToJsonString(object).replaceAll("\\\\\"", "\"")));
-    return object;
-
-  }
+	@Around("logDebugAroundPointcut()")
+	public Object applicationLoggerConsumer(ProceedingJoinPoint proceedingJoinPoint)
+			throws Throwable {
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("Enter: {}.{}() with argument[s] = {}",
+					proceedingJoinPoint.getSignature().getDeclaringTypeName(),
+					proceedingJoinPoint.getSignature().getName(), MaskingUtil.getMaskedMessage(
+							ObjectMapperUtil.objectToJsonString(proceedingJoinPoint.getArgs())));
+		Object result = proceedingJoinPoint.proceed();
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("Exit: {}.{}() with result = {}",
+					proceedingJoinPoint.getSignature().getDeclaringTypeName(),
+					proceedingJoinPoint.getSignature().getName(),
+					MaskingUtil.getMaskedMessage(ObjectMapperUtil.objectToJsonString(result)));
+		return result;
+	}
 
 
-
-  @AfterThrowing(
-      pointcut = "execution(* com.prokarma.customerdetails.consumer.service.CustomerDetailsConsumerServiceImpl.*(..))",
-      throwing = "ex")
-  public void logAfterThrowingAllMethods(Exception ex) {
-    if (LOG.isDebugEnabled())
-      LOG.debug(ex.getMessage());
-
-  }
+	@AfterThrowing(pointcut = "logErrorAfterThrowingPointcut()", throwing = "ex")
+	public void logAfterThrowing(JoinPoint joinPoint, Throwable ex) {
+		LOGGER.error("Exception in {}.{}() with cause = {}",
+				joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName(),
+				ex.getMessage());
+	}
 
 }

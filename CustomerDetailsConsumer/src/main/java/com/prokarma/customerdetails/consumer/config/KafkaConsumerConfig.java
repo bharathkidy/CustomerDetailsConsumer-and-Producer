@@ -12,6 +12,7 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
+import com.prokarma.customerdetails.consumer.errorhandler.KafkaListenerErrorHandler;
 import com.prokarma.customerdetails.consumer.model.CustomerDetailsRequest;
 
 
@@ -19,33 +20,44 @@ import com.prokarma.customerdetails.consumer.model.CustomerDetailsRequest;
 @EnableKafka
 public class KafkaConsumerConfig {
 
-  @Value("${spring.kafka.bootstrap-servers}")
-  private String bootstrapServers;
+	@Value("${spring.kafka.bootstrap-servers}")
+	private String bootstrapServers;
 
 
+	@Bean("customerDetails")
+	public ConcurrentKafkaListenerContainerFactory<String, CustomerDetailsRequest> kafkaListenerContainerFactoryString() {
+		ConcurrentKafkaListenerContainerFactory<String, CustomerDetailsRequest> concurrentKafkaListenerContainerFactory =
+				new ConcurrentKafkaListenerContainerFactory<>();
+		concurrentKafkaListenerContainerFactory.setConsumerFactory(consumerFactory());
+		concurrentKafkaListenerContainerFactory.setErrorHandler(new KafkaListenerErrorHandler());
+		return concurrentKafkaListenerContainerFactory;
+	}
 
-  @Bean("customerDetails")
-  public ConcurrentKafkaListenerContainerFactory<String, CustomerDetailsRequest> kafkaListenerContainerFactoryString() {
+	@Bean
+	public Map<String, Object> consumerProperties() {
+		Map<String, Object> consumerProperties = new HashMap<>();
+		consumerProperties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+		consumerProperties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+		consumerProperties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+		consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG, "json");
+		consumerProperties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+		return consumerProperties;
+	}
 
-    JsonDeserializer<CustomerDetailsRequest> jsonDeserializer =
-        new JsonDeserializer<>(CustomerDetailsRequest.class);
-    jsonDeserializer.setRemoveTypeHeaders(false);
-    jsonDeserializer.addTrustedPackages("com.prokarma.customerdetails");
-    jsonDeserializer.setUseTypeMapperForKey(true);
+	@Bean
+	public JsonDeserializer<CustomerDetailsRequest> jsonDeserializer() {
+		JsonDeserializer<CustomerDetailsRequest> jsonDeserializer =
+				new JsonDeserializer<>(CustomerDetailsRequest.class);
+		jsonDeserializer.setRemoveTypeHeaders(false);
+		jsonDeserializer.addTrustedPackages("com.prokarma.customerdetails");
+		jsonDeserializer.setUseTypeMapperForKey(true);
+		return jsonDeserializer;
+	}
 
-    Map<String, Object> props = new HashMap<>();
-    props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-    props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-    props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-    props.put(ConsumerConfig.GROUP_ID_CONFIG, "json");
-    props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+	@Bean
+	public ConsumerFactory<String, CustomerDetailsRequest> consumerFactory() {
+		return new DefaultKafkaConsumerFactory<>(consumerProperties(), new StringDeserializer(),
+				jsonDeserializer());
+	}
 
-    ConsumerFactory<String, CustomerDetailsRequest> consumerFactory =
-        new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), jsonDeserializer);
-
-    ConcurrentKafkaListenerContainerFactory<String, CustomerDetailsRequest> factory =
-        new ConcurrentKafkaListenerContainerFactory<>();
-    factory.setConsumerFactory(consumerFactory);
-    return factory;
-  }
 }

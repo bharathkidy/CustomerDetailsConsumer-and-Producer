@@ -25,347 +25,347 @@ import io.swagger.annotations.ApiModelProperty;
  * CustomerDetailsRequest
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen",
-    date = "2020-05-12T03:20:57.529Z")
+		date = "2020-05-12T03:20:57.529Z")
 public class CustomerDetailsRequest {
-  @JsonProperty("customerNumber")
-  private String customerNumber = null;
+	@JsonProperty("customerNumber")
+	private String customerNumber = null;
 
-  @JsonProperty("firstName")
-  private String firstName = null;
+	@JsonProperty("firstName")
+	private String firstName = null;
 
-  @JsonProperty("lastName")
-  private String lastName = null;
+	@JsonProperty("lastName")
+	private String lastName = null;
 
-  @JsonProperty("birthDate")
-  private String birthDate = null;
+	@JsonProperty("birthDate")
+	private String birthDate = null;
 
-  @JsonProperty("country")
-  private String country = null;
+	@JsonProperty("country")
+	private String country = null;
 
-  @JsonProperty("countryCode")
-  private String countryCode = null;
+	@JsonProperty("countryCode")
+	private String countryCode = null;
 
-  @JsonProperty("mobileNumber")
-  private String mobileNumber = null;
+	@JsonProperty("mobileNumber")
+	private String mobileNumber = null;
 
-  @JsonProperty("email")
-  private String email = null;
+	@JsonProperty("email")
+	private String email = null;
 
-  /**
-   * customerStatus
-   */
-  public enum CustomerStatusEnum {
-    OPEN("Open"),
+	/**
+	 * customerStatus
+	 */
+	public enum CustomerStatusEnum {
+		OPEN("Open"),
 
-    CLOSE("Close"),
+		CLOSE("Close"),
 
-    SUSPENDED("Suspended"),
+		SUSPENDED("Suspended"),
 
-    RESTORED("Restored");
+		RESTORED("Restored");
 
-    private String value;
+		private String value;
 
-    CustomerStatusEnum(String value) {
-      this.value = value;
-    }
+		CustomerStatusEnum(String value) {
+			this.value = value;
+		}
 
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
+		@Override
+		@JsonValue
+		public String toString() {
+			return String.valueOf(value);
+		}
 
-    @JsonCreator
-    public static CustomerStatusEnum fromValue(String text) {
-      for (CustomerStatusEnum b : CustomerStatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-  }
+		@JsonCreator
+		public static CustomerStatusEnum fromValue(String text) {
+			for (CustomerStatusEnum b : CustomerStatusEnum.values()) {
+				if (String.valueOf(b.value).equals(text)) {
+					return b;
+				}
+			}
+			return null;
+		}
+	}
 
-  @JsonProperty("customerStatus")
-  private CustomerStatusEnum customerStatus = null;
+	@JsonProperty("customerStatus")
+	private CustomerStatusEnum customerStatus = null;
 
-  @JsonProperty("address")
-  private Address address = null;
+	@JsonProperty("address")
+	private Address address = null;
 
-  public CustomerDetailsRequest customerNumber(String customerNumber) {
-    this.customerNumber = customerNumber;
-    return this;
-  }
+	public CustomerDetailsRequest customerNumber(String customerNumber) {
+		this.customerNumber = customerNumber;
+		return this;
+	}
 
-  /**
-   * customer Number
-   * 
-   * @return customerNumber
-   **/
-  @JsonProperty("customerNumber")
-  @ApiModelProperty(example = "C000000001", required = true, value = "customer Number")
-  @NotNull
-  @Pattern(regexp = "^[a-zA-Z]\\d{9}$")
-  @Size(max = 10)
-  public String getCustomerNumber() {
-    return customerNumber;
-  }
+	/**
+	 * customer Number
+	 * 
+	 * @return customerNumber
+	 **/
+	@JsonProperty("customerNumber")
+	@ApiModelProperty(example = "C000000001", required = true, value = "customer Number")
+	@NotNull
+	@Pattern(regexp = "^[a-zA-Z]\\d{9}$")
+	@Size(max = 10)
+	public String getCustomerNumber() {
+		return customerNumber;
+	}
 
-  public void setCustomerNumber(String customerNumber) {
-    this.customerNumber = customerNumber;
-  }
+	public void setCustomerNumber(String customerNumber) {
+		this.customerNumber = customerNumber;
+	}
 
-  public CustomerDetailsRequest firstName(String firstName) {
-    this.firstName = firstName;
-    return this;
-  }
+	public CustomerDetailsRequest firstName(String firstName) {
+		this.firstName = firstName;
+		return this;
+	}
 
-  /**
-   * firstName
-   * 
-   * @return firstName
-   **/
-  @JsonProperty("firstName")
-  @ApiModelProperty(example = "Bharath", required = true, value = "firstName")
-  @NotNull
-  @Size(min = 10, max = 50)
-  public String getFirstName() {
-    return firstName;
-  }
+	/**
+	 * firstName
+	 * 
+	 * @return firstName
+	 **/
+	@JsonProperty("firstName")
+	@ApiModelProperty(example = "Bharath", required = true, value = "firstName")
+	@NotNull
+	@Size(min = 10, max = 50)
+	public String getFirstName() {
+		return firstName;
+	}
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-  public CustomerDetailsRequest lastName(String lastName) {
-    this.lastName = lastName;
-    return this;
-  }
+	public CustomerDetailsRequest lastName(String lastName) {
+		this.lastName = lastName;
+		return this;
+	}
 
-  /**
-   * lastName
-   * 
-   * @return lastName
-   **/
-  @JsonProperty("lastName")
-  @ApiModelProperty(example = "Mokkala", required = true, value = "lastName")
-  @NotNull
-  @Size(min = 10, max = 50)
-  public String getLastName() {
-    return lastName;
-  }
+	/**
+	 * lastName
+	 * 
+	 * @return lastName
+	 **/
+	@JsonProperty("lastName")
+	@ApiModelProperty(example = "Mokkala", required = true, value = "lastName")
+	@NotNull
+	@Size(min = 10, max = 50)
+	public String getLastName() {
+		return lastName;
+	}
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-  public CustomerDetailsRequest birthDate(String birthDate) {
-    this.birthDate = birthDate;
-    return this;
-  }
+	public CustomerDetailsRequest birthDate(String birthDate) {
+		this.birthDate = birthDate;
+		return this;
+	}
 
-  /**
-   * birthdate
-   * 
-   * @return birthDate
-   **/
-  @JsonProperty("birthDate")
-  @ApiModelProperty(example = "29-06-1991", value = "birthdate")
-  @Pattern(regexp = "\\d{2}-\\d{2}-\\d{4}")
-  public String getBirthDate() {
-    return birthDate;
-  }
+	/**
+	 * birthdate
+	 * 
+	 * @return birthDate
+	 **/
+	@JsonProperty("birthDate")
+	@ApiModelProperty(example = "29-06-1991", value = "birthdate")
+	@Pattern(regexp = "\\d{2}-\\d{2}-\\d{4}")
+	public String getBirthDate() {
+		return birthDate;
+	}
 
-  public void setBirthDate(String birthDate) {
-    this.birthDate = birthDate;
-  }
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
 
-  public CustomerDetailsRequest country(String country) {
-    this.country = country;
-    return this;
-  }
+	public CustomerDetailsRequest country(String country) {
+		this.country = country;
+		return this;
+	}
 
-  /**
-   * country name
-   * 
-   * @return country
-   **/
-  @JsonProperty("country")
-  @ApiModelProperty(example = "India", required = true, value = "country name")
-  @NotNull
-  public String getCountry() {
-    return country;
-  }
+	/**
+	 * country name
+	 * 
+	 * @return country
+	 **/
+	@JsonProperty("country")
+	@ApiModelProperty(example = "India", required = true, value = "country name")
+	@NotNull
+	public String getCountry() {
+		return country;
+	}
 
-  public void setCountry(String country) {
-    this.country = country;
-  }
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
-  public CustomerDetailsRequest countryCode(String countryCode) {
-    this.countryCode = countryCode;
-    return this;
-  }
+	public CustomerDetailsRequest countryCode(String countryCode) {
+		this.countryCode = countryCode;
+		return this;
+	}
 
-  /**
-   * countryCode
-   * 
-   * @return countryCode
-   **/
-  @JsonProperty("countryCode")
-  @ApiModelProperty(example = "IN", required = true, value = "countryCode")
-  @NotNull
-  @Size(max = 2)
-  public String getCountryCode() {
-    return countryCode;
-  }
+	/**
+	 * countryCode
+	 * 
+	 * @return countryCode
+	 **/
+	@JsonProperty("countryCode")
+	@ApiModelProperty(example = "IN", required = true, value = "countryCode")
+	@NotNull
+	@Size(max = 2)
+	public String getCountryCode() {
+		return countryCode;
+	}
 
-  public void setCountryCode(String countryCode) {
-    this.countryCode = countryCode;
-  }
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
 
-  public CustomerDetailsRequest mobileNumber(String mobileNumber) {
-    this.mobileNumber = mobileNumber;
-    return this;
-  }
+	public CustomerDetailsRequest mobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+		return this;
+	}
 
-  /**
-   * mobileNumber
-   * 
-   * @return mobileNumber
-   **/
-  @JsonProperty("mobileNumber")
-  @ApiModelProperty(example = "5555551216", required = true, value = "mobileNumber")
-  @NotNull
-  @Size(max = 10)
-  public String getMobileNumber() {
-    return mobileNumber;
-  }
+	/**
+	 * mobileNumber
+	 * 
+	 * @return mobileNumber
+	 **/
+	@JsonProperty("mobileNumber")
+	@ApiModelProperty(example = "5555551216", required = true, value = "mobileNumber")
+	@NotNull
+	@Size(max = 10)
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
 
-  public void setMobileNumber(String mobileNumber) {
-    this.mobileNumber = mobileNumber;
-  }
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
 
-  public CustomerDetailsRequest email(String email) {
-    this.email = email;
-    return this;
-  }
+	public CustomerDetailsRequest email(String email) {
+		this.email = email;
+		return this;
+	}
 
-  /**
-   * email
-   * 
-   * @return email
-   **/
-  @JsonProperty("email")
-  @ApiModelProperty(example = "abc@gmail.com", required = true, value = "email")
-  @NotNull
-  @Size(max = 50)
-  public String getEmail() {
-    return email;
-  }
+	/**
+	 * email
+	 * 
+	 * @return email
+	 **/
+	@JsonProperty("email")
+	@ApiModelProperty(example = "abc@gmail.com", required = true, value = "email")
+	@NotNull
+	@Size(max = 50)
+	public String getEmail() {
+		return email;
+	}
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-  public CustomerDetailsRequest customerStatus(CustomerStatusEnum customerStatus) {
-    this.customerStatus = customerStatus;
-    return this;
-  }
+	public CustomerDetailsRequest customerStatus(CustomerStatusEnum customerStatus) {
+		this.customerStatus = customerStatus;
+		return this;
+	}
 
-  /**
-   * customerStatus
-   * 
-   * @return customerStatus
-   **/
-  @JsonProperty("customerStatus")
-  @ApiModelProperty(example = "Open", required = true, value = "customerStatus")
-  @NotNull
-  public CustomerStatusEnum getCustomerStatus() {
-    return customerStatus;
-  }
+	/**
+	 * customerStatus
+	 * 
+	 * @return customerStatus
+	 **/
+	@JsonProperty("customerStatus")
+	@ApiModelProperty(example = "Open", required = true, value = "customerStatus")
+	@NotNull
+	public CustomerStatusEnum getCustomerStatus() {
+		return customerStatus;
+	}
 
-  public void setCustomerStatus(CustomerStatusEnum customerStatus) {
-    this.customerStatus = customerStatus;
-  }
+	public void setCustomerStatus(CustomerStatusEnum customerStatus) {
+		this.customerStatus = customerStatus;
+	}
 
-  public CustomerDetailsRequest address(Address address) {
-    this.address = address;
-    return this;
-  }
+	public CustomerDetailsRequest address(Address address) {
+		this.address = address;
+		return this;
+	}
 
-  /**
-   * Get address
-   * 
-   * @return address
-   **/
-  @JsonProperty("address")
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
-  public Address getAddress() {
-    return address;
-  }
+	/**
+	 * Get address
+	 * 
+	 * @return address
+	 **/
+	@JsonProperty("address")
+	@ApiModelProperty(required = true, value = "")
+	@NotNull
+	public Address getAddress() {
+		return address;
+	}
 
-  public void setAddress(Address address) {
-    this.address = address;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    CustomerDetailsRequest customerDetailsRequest = (CustomerDetailsRequest) o;
-    return Objects.equals(this.customerNumber, customerDetailsRequest.customerNumber)
-        && Objects.equals(this.firstName, customerDetailsRequest.firstName)
-        && Objects.equals(this.lastName, customerDetailsRequest.lastName)
-        && Objects.equals(this.birthDate, customerDetailsRequest.birthDate)
-        && Objects.equals(this.country, customerDetailsRequest.country)
-        && Objects.equals(this.countryCode, customerDetailsRequest.countryCode)
-        && Objects.equals(this.mobileNumber, customerDetailsRequest.mobileNumber)
-        && Objects.equals(this.email, customerDetailsRequest.email)
-        && Objects.equals(this.customerStatus, customerDetailsRequest.customerStatus)
-        && Objects.equals(this.address, customerDetailsRequest.address);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(customerNumber, firstName, lastName, birthDate, country, countryCode,
-        mobileNumber, email, customerStatus, address);
-  }
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CustomerDetailsRequest {\n");
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		CustomerDetailsRequest customerDetailsRequest = (CustomerDetailsRequest) o;
+		return Objects.equals(this.customerNumber, customerDetailsRequest.customerNumber)
+				&& Objects.equals(this.firstName, customerDetailsRequest.firstName)
+				&& Objects.equals(this.lastName, customerDetailsRequest.lastName)
+				&& Objects.equals(this.birthDate, customerDetailsRequest.birthDate)
+				&& Objects.equals(this.country, customerDetailsRequest.country)
+				&& Objects.equals(this.countryCode, customerDetailsRequest.countryCode)
+				&& Objects.equals(this.mobileNumber, customerDetailsRequest.mobileNumber)
+				&& Objects.equals(this.email, customerDetailsRequest.email)
+				&& Objects.equals(this.customerStatus, customerDetailsRequest.customerStatus)
+				&& Objects.equals(this.address, customerDetailsRequest.address);
+	}
 
-    sb.append("    customerNumber: ").append(toIndentedString(customerNumber)).append("\n");
-    sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
-    sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
-    sb.append("    birthDate: ").append(toIndentedString(birthDate)).append("\n");
-    sb.append("    country: ").append(toIndentedString(country)).append("\n");
-    sb.append("    countryCode: ").append(toIndentedString(countryCode)).append("\n");
-    sb.append("    mobileNumber: ").append(toIndentedString(mobileNumber)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    customerStatus: ").append(toIndentedString(customerStatus)).append("\n");
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(customerNumber, firstName, lastName, birthDate, country, countryCode,
+				mobileNumber, email, customerStatus, address);
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class CustomerDetailsRequest {\n");
+
+		sb.append("    customerNumber: ").append(toIndentedString(customerNumber)).append("\n");
+		sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
+		sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
+		sb.append("    birthDate: ").append(toIndentedString(birthDate)).append("\n");
+		sb.append("    country: ").append(toIndentedString(country)).append("\n");
+		sb.append("    countryCode: ").append(toIndentedString(countryCode)).append("\n");
+		sb.append("    mobileNumber: ").append(toIndentedString(mobileNumber)).append("\n");
+		sb.append("    email: ").append(toIndentedString(email)).append("\n");
+		sb.append("    customerStatus: ").append(toIndentedString(customerStatus)).append("\n");
+		sb.append("    address: ").append(toIndentedString(address)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 }
 
 

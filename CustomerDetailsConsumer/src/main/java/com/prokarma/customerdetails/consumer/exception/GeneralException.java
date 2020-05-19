@@ -1,5 +1,4 @@
-package com.prokarma.customerdetails.producer.exceptions;
-
+package com.prokarma.customerdetails.consumer.exception;
 
 public class GeneralException extends RuntimeException {
 
@@ -17,9 +16,12 @@ public class GeneralException extends RuntimeException {
 		this.status = status;
 	}
 
+
+
 	public String getErrorType() {
 		return errorType;
 	}
+
 
 	@Override
 	public String getMessage() {
@@ -29,5 +31,7 @@ public class GeneralException extends RuntimeException {
 	public String getStatus() {
 		return status;
 	}
+
+
 
 }

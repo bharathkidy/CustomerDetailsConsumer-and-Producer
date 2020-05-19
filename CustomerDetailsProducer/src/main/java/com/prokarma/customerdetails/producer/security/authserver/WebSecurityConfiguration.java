@@ -14,21 +14,21 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  PasswordEncoder passwordEncoder;
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
-  @Override
-  @Bean
-  public AuthenticationManager authenticationManagerBean() throws Exception {
-    return super.authenticationManagerBean();
-  }
+	@Override
+	@Bean
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 
-  @Bean
-  @Override
-  public UserDetailsService userDetailsService() {
-    UserDetails user = User.builder().username("user").password(passwordEncoder.encode("secret"))
-        .roles("USER").build();
-    return new InMemoryUserDetailsManager(user);
+	@Bean
+	@Override
+	public UserDetailsService userDetailsService() {
+		UserDetails user = User.builder().username("user").password(passwordEncoder.encode("secret"))
+				.roles("USER").build();
+		return new InMemoryUserDetailsManager(user);
 
-  }
+	}
 }

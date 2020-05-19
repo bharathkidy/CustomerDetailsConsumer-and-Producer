@@ -15,35 +15,35 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 @Configuration
 public class KafkaProducerConfig {
 
-  @Value("${spring.kafka.bootstrap-servers}")
-  private String bootstrapServers;
+	@Value("${spring.kafka.bootstrap-servers}")
+	private String bootstrapServers;
 
-  @Value("${spring.kafka.producer.client-id}")
-  private String kafkaProducerClientId;
+	@Value("${spring.kafka.producer.client-id}")
+	private String kafkaProducerClientId;
 
-  @Value("${spring.kafka.max.block.ms}")
-  private int kafkaProducerRequestMaxBlockTime;
+	@Value("${spring.kafka.max.block.ms}")
+	private int kafkaProducerRequestMaxBlockTime;
 
-  @Bean
-  public Map<String, Object> producerConfigs() {
-    Map<String, Object> props = new HashMap<>();
-    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-    props.put(ProducerConfig.CLIENT_ID_CONFIG, kafkaProducerClientId);
-    props.put(ProducerConfig.MAX_BLOCK_MS_CONFIG, kafkaProducerRequestMaxBlockTime);
+	@Bean
+	public Map<String, Object> producerConfigs() {
+		Map<String, Object> producerConfigPropertis = new HashMap<>();
+		producerConfigPropertis.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+		producerConfigPropertis.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+		producerConfigPropertis.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+		producerConfigPropertis.put(ProducerConfig.CLIENT_ID_CONFIG, kafkaProducerClientId);
+		producerConfigPropertis.put(ProducerConfig.MAX_BLOCK_MS_CONFIG,
+				kafkaProducerRequestMaxBlockTime);
+		return producerConfigPropertis;
+	}
 
-    return props;
-  }
+	@Bean
+	public <T> ProducerFactory<String, T> producerFactory() {
+		return new DefaultKafkaProducerFactory<>(producerConfigs());
+	}
 
-  @Bean
-  public <T> ProducerFactory<String, T> producerFactory() {
-    return new DefaultKafkaProducerFactory<>(producerConfigs());
-  }
-
-  @Bean
-  public <T> KafkaTemplate<String, T> kafkaTemplate() {
-    return new KafkaTemplate<>(producerFactory());
-  }
+	@Bean
+	public <T> KafkaTemplate<String, T> kafkaTemplate() {
+		return new KafkaTemplate<>(producerFactory());
+	}
 
 }

@@ -21,148 +21,148 @@ import io.swagger.annotations.ApiModelProperty;
  * Address
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaJerseyServerCodegen",
-    date = "2020-05-12T03:20:57.529Z")
+		date = "2020-05-12T03:20:57.529Z")
 public class Address {
-  @JsonProperty("addressLine1")
-  private String addressLine1 = null;
+	@JsonProperty("addressLine1")
+	private String addressLine1 = null;
 
-  @JsonProperty("addressLine2")
-  private String addressLine2 = null;
+	@JsonProperty("addressLine2")
+	private String addressLine2 = null;
 
-  @JsonProperty("street")
-  private String street = null;
+	@JsonProperty("street")
+	private String street = null;
 
-  @JsonProperty("postalCode")
-  private String postalCode = null;
+	@JsonProperty("postalCode")
+	private String postalCode = null;
 
-  public Address addressLine1(String addressLine1) {
-    this.addressLine1 = addressLine1;
-    return this;
-  }
+	public Address addressLine1(String addressLine1) {
+		this.addressLine1 = addressLine1;
+		return this;
+	}
 
-  /**
-   * addressLine1
-   * 
-   * @return addressLine1
-   **/
-  @JsonProperty("addressLine1")
-  @ApiModelProperty(required = true, value = "addressLine1")
-  @NotNull
-  @Size(max = 50)
-  public String getAddressLine1() {
-    return addressLine1;
-  }
+	/**
+	 * addressLine1
+	 * 
+	 * @return addressLine1
+	 **/
+	@JsonProperty("addressLine1")
+	@ApiModelProperty(required = true, value = "addressLine1")
+	@NotNull
+	@Size(max = 50)
+	public String getAddressLine1() {
+		return addressLine1;
+	}
 
-  public void setAddressLine1(String addressLine1) {
-    this.addressLine1 = addressLine1;
-  }
+	public void setAddressLine1(String addressLine1) {
+		this.addressLine1 = addressLine1;
+	}
 
-  public Address addressLine2(String addressLine2) {
-    this.addressLine2 = addressLine2;
-    return this;
-  }
+	public Address addressLine2(String addressLine2) {
+		this.addressLine2 = addressLine2;
+		return this;
+	}
 
-  /**
-   * addressLine2
-   * 
-   * @return addressLine2
-   **/
-  @JsonProperty("addressLine2")
-  @ApiModelProperty(value = "addressLine2")
-  public String getAddressLine2() {
-    return addressLine2;
-  }
+	/**
+	 * addressLine2
+	 * 
+	 * @return addressLine2
+	 **/
+	@JsonProperty("addressLine2")
+	@ApiModelProperty(value = "addressLine2")
+	public String getAddressLine2() {
+		return addressLine2;
+	}
 
-  public void setAddressLine2(String addressLine2) {
-    this.addressLine2 = addressLine2;
-  }
+	public void setAddressLine2(String addressLine2) {
+		this.addressLine2 = addressLine2;
+	}
 
-  public Address street(String street) {
-    this.street = street;
-    return this;
-  }
+	public Address street(String street) {
+		this.street = street;
+		return this;
+	}
 
-  /**
-   * street
-   * 
-   * @return street
-   **/
-  @JsonProperty("street")
-  @ApiModelProperty(value = "street ")
-  public String getStreet() {
-    return street;
-  }
+	/**
+	 * street
+	 * 
+	 * @return street
+	 **/
+	@JsonProperty("street")
+	@ApiModelProperty(value = "street ")
+	public String getStreet() {
+		return street;
+	}
 
-  public void setStreet(String street) {
-    this.street = street;
-  }
+	public void setStreet(String street) {
+		this.street = street;
+	}
 
-  public Address postalCode(String postalCode) {
-    this.postalCode = postalCode;
-    return this;
-  }
+	public Address postalCode(String postalCode) {
+		this.postalCode = postalCode;
+		return this;
+	}
 
-  /**
-   * Get postalCode
-   * 
-   * @return postalCode
-   **/
-  @JsonProperty("postalCode")
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
-  @Size(max = 5)
-  public String getPostalCode() {
-    return postalCode;
-  }
+	/**
+	 * Get postalCode
+	 * 
+	 * @return postalCode
+	 **/
+	@JsonProperty("postalCode")
+	@ApiModelProperty(required = true, value = "")
+	@NotNull
+	@Size(max = 5)
+	public String getPostalCode() {
+		return postalCode;
+	}
 
-  public void setPostalCode(String postalCode) {
-    this.postalCode = postalCode;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Address address = (Address) o;
-    return Objects.equals(this.addressLine1, address.addressLine1)
-        && Objects.equals(this.addressLine2, address.addressLine2)
-        && Objects.equals(this.street, address.street)
-        && Objects.equals(this.postalCode, address.postalCode);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(addressLine1, addressLine2, street, postalCode);
-  }
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
 
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Address {\n");
+	@Override
+	public boolean equals(java.lang.Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Address address = (Address) o;
+		return Objects.equals(this.addressLine1, address.addressLine1)
+				&& Objects.equals(this.addressLine2, address.addressLine2)
+				&& Objects.equals(this.street, address.street)
+				&& Objects.equals(this.postalCode, address.postalCode);
+	}
 
-    sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
-    sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
-    sb.append("    street: ").append(toIndentedString(street)).append("\n");
-    sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
+	@Override
+	public int hashCode() {
+		return Objects.hash(addressLine1, addressLine2, street, postalCode);
+	}
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("class Address {\n");
+
+		sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
+		sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
+		sb.append("    street: ").append(toIndentedString(street)).append("\n");
+		sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
+		sb.append("}");
+		return sb.toString();
+	}
+
+	/**
+	 * Convert the given object to string with each line indented by 4 spaces (except the first line).
+	 */
+	private String toIndentedString(java.lang.Object o) {
+		if (o == null) {
+			return "null";
+		}
+		return o.toString().replace("\n", "\n    ");
+	}
 }
 
 

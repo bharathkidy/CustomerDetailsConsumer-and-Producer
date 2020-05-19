@@ -12,24 +12,24 @@ import com.prokarma.customerdetails.producer.security.authserver.CustomAuthentic
 @EnableResourceServer
 @RestController
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
-  @Override
-  public void configure(HttpSecurity http) throws Exception {
+	@Override
+	public void configure(HttpSecurity http) throws Exception {
 
 
-    http.antMatcher("/**").authorizeRequests().antMatchers("/oauth/token**", "/login**", "/error**")
-        .permitAll().and().authorizeRequests().anyRequest().authenticated().and().formLogin()
-        .permitAll();
-  }
+		http.antMatcher("/**").authorizeRequests().antMatchers("/oauth/token**", "/login**", "/error**")
+				.permitAll().and().authorizeRequests().anyRequest().authenticated().and().formLogin()
+				.permitAll();
+	}
 
-  @Override
-  public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-    resources.authenticationEntryPoint(customAuthEntryPoint());
-  }
+	@Override
+	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+		resources.authenticationEntryPoint(customAuthEntryPoint());
+	}
 
-  @Bean
-  public AuthenticationEntryPoint customAuthEntryPoint() {
-    return new CustomAuthenticationFailureHandler();
-  }
+	@Bean
+	public AuthenticationEntryPoint customAuthEntryPoint() {
+		return new CustomAuthenticationFailureHandler();
+	}
 
 
 }

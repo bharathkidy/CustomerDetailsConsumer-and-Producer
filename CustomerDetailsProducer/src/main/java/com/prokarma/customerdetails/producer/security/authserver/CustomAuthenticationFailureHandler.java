@@ -11,13 +11,13 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 
 public class CustomAuthenticationFailureHandler implements AuthenticationEntryPoint {
 
-  @Autowired
-  @Qualifier("handlerExceptionResolver")
-  private HandlerExceptionResolver resolver;
+	@Autowired
+	@Qualifier("handlerExceptionResolver")
+	private HandlerExceptionResolver handlerExceptionResolver;
 
-  @Override
-  public void commence(HttpServletRequest request, HttpServletResponse response,
-      AuthenticationException authException) throws IOException {
-    resolver.resolveException(request, response, null, authException);
-  }
+	@Override
+	public void commence(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException authException) throws IOException {
+		handlerExceptionResolver.resolveException(request, response, null, authException);
+	}
 }

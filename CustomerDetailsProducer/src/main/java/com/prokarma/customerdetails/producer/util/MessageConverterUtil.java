@@ -8,21 +8,19 @@ import org.springframework.messaging.support.MessageBuilder;
 
 public class MessageConverterUtil {
 
-  private static final Logger logger = LoggerFactory.getLogger(MessageConverterUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(MessageConverterUtil.class);
 
-  private MessageConverterUtil() {
+	private MessageConverterUtil() {
 
-  }
+	}
 
-  public static <T> Message<T> getMessage(T inputRequest, String topicName) {
-    Message<T> message =
-        MessageBuilder.withPayload(inputRequest).setHeader(KafkaHeaders.TOPIC, topicName).build();
-    if (logger.isDebugEnabled()) {
-      logger.debug("Customer Details Request: {} ",
-          MaskingUtil.getMaskedMessage(ObjectMapperUtil.objectToJsonString(message)));
-    }
-
-    return message;
-
-  }
+	public static <T> Message<T> getMessage(T inputRequest, String topicName) {
+		Message<T> message =
+				MessageBuilder.withPayload(inputRequest).setHeader(KafkaHeaders.TOPIC, topicName).build();
+		if (logger.isDebugEnabled()) {
+			logger.debug("Input Message Posting to Kafka: {} ",
+					MaskingUtil.getMaskedMessage(ObjectMapperUtil.objectToJsonString(message)));
+		}
+		return message;
+	}
 }

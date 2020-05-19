@@ -16,59 +16,60 @@ import com.prokarma.customerdetails.producer.model.ErrorResponse;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-  private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+	private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-  private static final String ERROR = "error";
+	private static final String ERROR = "error";
 
-  private static final String INVALID_REQUEST_EXCEPTION = "InvalidRequestException";
+	private static final String INVALID_REQUEST_EXCEPTION = "InvalidRequestException";
 
-  private static final String TOKEN_EXCEPTION = "TokenException";
+	private static final String TOKEN_EXCEPTION = "TokenException";
 
+	@ExceptionHandler(
+			value = {HttpMessageNotReadableException.class, MethodArgumentNotValidException.class})
+	public ResponseEntity<ErrorResponse> invalidRequestxception(Exception ex) {
+		if (ex instanceof MethodArgumentNotValidException) {
+			return methodArgumentNotValidException(ex);
+		} else {
+			return httpMessageNotReadableException(ex);
+		}
+	}
 
+	private ResponseEntity<ErrorResponse> methodArgumentNotValidException(Exception ex) {
+		MethodArgumentNotValidException methodArgumentNotValidException =
+				(MethodArgumentNotValidException) ex;
+		StringBuilder message = new StringBuilder();
+		for (FieldError error : methodArgumentNotValidException.getBindingResult().getFieldErrors()) {
+			message.append("Invalid Field :" + error.getField() + ",");
+		}
+		ErrorResponse errorResponse = new ErrorResponse().status(ERROR).message(message.toString())
+				.errorType(INVALID_REQUEST_EXCEPTION);
+		log.error("{}", message);
+		return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+	}
 
-  @ExceptionHandler(
-      value = {HttpMessageNotReadableException.class, MethodArgumentNotValidException.class})
-  public ResponseEntity<Object> invalidRequestxception(Exception ex) {
-    if (ex instanceof MethodArgumentNotValidException) {
-      MethodArgumentNotValidException methodArgumentNotValidException =
-          (MethodArgumentNotValidException) ex;
-      StringBuilder message = new StringBuilder();
-      for (FieldError error : methodArgumentNotValidException.getBindingResult().getFieldErrors()) {
-        message.append("Invalid Field :" + error.getField() + ",");
-      }
+	private ResponseEntity<ErrorResponse> httpMessageNotReadableException(Exception ex) {
+		ErrorResponse errorResponse = new ErrorResponse().status(ERROR)
+				.message(ex.getLocalizedMessage()).errorType(INVALID_REQUEST_EXCEPTION);
+		log.error("{}", ex.getLocalizedMessage());
+		return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+	}
 
-      ErrorResponse errorResponse = new ErrorResponse().status(ERROR).message(message.toString())
-          .errorType(INVALID_REQUEST_EXCEPTION);
+	@ExceptionHandler(value = {AuthenticationException.class})
+	public ResponseEntity<ErrorResponse> tokenException(Exception e) {
+		String message = e.getMessage();
+		log.error(message);
+		return new ResponseEntity<>(
+				new ErrorResponse().message(message).status(ERROR).errorType(TOKEN_EXCEPTION),
+				HttpStatus.UNAUTHORIZED);
+	}
 
-      log.error("{}", message);
-      return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-    } else {
-      ErrorResponse errorResponse = new ErrorResponse().status(ERROR)
-          .message(ex.getLocalizedMessage()).errorType(INVALID_REQUEST_EXCEPTION);
-
-      log.error("{}", ex.getLocalizedMessage());
-      return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-    }
-  }
-
-
-
-  @ExceptionHandler(value = {AuthenticationException.class})
-  public ResponseEntity<Object> tokenException(Exception e) {
-    String message = e.getMessage();
-    log.error(message);
-    return new ResponseEntity<>(
-        new ErrorResponse().message(message).status(ERROR).errorType(TOKEN_EXCEPTION),
-        HttpStatus.UNAUTHORIZED);
-  }
-
-  @ExceptionHandler(value = {GeneralException.class})
-  public ResponseEntity<Object> generalException(GeneralException e) {
-    String message = e.getMessage();
-    log.error(message);
-    return new ResponseEntity<>(new ErrorResponse().message(e.getMessage()).status(e.getStatus())
-        .errorType(e.getErrorType()), HttpStatus.INTERNAL_SERVER_ERROR);
-  }
+	@ExceptionHandler(value = {GeneralException.class})
+	public ResponseEntity<ErrorResponse> generalException(GeneralException e) {
+		String message = e.getMessage();
+		log.error(message);
+		return new ResponseEntity<>(new ErrorResponse().message(e.getMessage()).status(e.getStatus())
+				.errorType(e.getErrorType()), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
 }
 

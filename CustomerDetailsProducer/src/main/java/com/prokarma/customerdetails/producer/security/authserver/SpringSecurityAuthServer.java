@@ -17,38 +17,38 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 @EnableAuthorizationServer
 public class SpringSecurityAuthServer extends AuthorizationServerConfigurerAdapter {
 
-  @Autowired
-  private AuthenticationManager authenticationManager;
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
-  @Autowired
-  private TokenStore tokenStore;
+	@Autowired
+	private TokenStore tokenStore;
 
 
 
-  @Override
-  public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+	@Override
+	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
-    clients.inMemory().withClient("client")
-        .authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
-        .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT", "USER").scopes("read", "write")
-        .autoApprove(true).secret(passwordEncoder().encode("password"));
-  }
+		clients.inMemory().withClient("client")
+				.authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
+				.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT", "USER").scopes("read", "write")
+				.autoApprove(true).secret(passwordEncoder().encode("password"));
+	}
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-  @Override
-  public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+	@Override
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 
-    endpoints.authenticationManager(authenticationManager).tokenStore(tokenStore);
-  }
+		endpoints.authenticationManager(authenticationManager).tokenStore(tokenStore);
+	}
 
-  @Bean
-  public TokenStore tokenStore() {
-    return new InMemoryTokenStore();
-  }
+	@Bean
+	public TokenStore tokenStore() {
+		return new InMemoryTokenStore();
+	}
 
 
 
